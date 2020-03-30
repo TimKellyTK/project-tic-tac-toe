@@ -164,9 +164,9 @@ The things you need to create to make it all work together
 - Update player 2's name (DONE)
 - Update title for instructions on what player's turn (DONE)
 - Update title when the game is finished (DONE)
-- Update the discard game icon for when game is started
-- Update the restart game icon for when game is finished
-- Create function to discard/restart the game
+- Update the discard game icon for when game is started (DONE)
+- Update the restart game icon for when game is finished (DONE)
+- Create function to discard/restart the game (DONE)
 - Store the player's names in localStorage
 - Clean up all the functions into factory functions and modules
 - Clean up the code
