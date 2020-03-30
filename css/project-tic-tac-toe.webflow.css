@@ -185,13 +185,7 @@ body {
   display: none;
 }
 
-.reset-game {
-  width: 25px;
-  cursor: pointer;
-}
-
 .refresh-game {
-  display: none;
   width: 25px;
   cursor: pointer;
 }

@@ -17,8 +17,9 @@ for (i=0; i < 9; i++) {
 };
 let outcomes = ['X', 'O'];
 let count = 0;
-let xo;
-let instructon = document.querySelector('.players-turn')
+let xo = 'X';
+let instruction = document.querySelector('.players-turn')
+let refreshGame = document.querySelector('.refresh-game')
 let gameComplete;
 
 boxes.forEach((box, index) => {
@@ -27,26 +28,45 @@ boxes.forEach((box, index) => {
     })
 })
 
+refreshGame.addEventListener('click', () => {
+    restart();
+})
+
 function gameLogic(box,index) {
     if (!gameComplete) {
         if(box.textContent === '') {
-            updatePlayer(index);
+            updateGame(index);
             updateBoard();
             checkBoard();
         }
     }
 }
 
-function updatePlayer(index) {
+function restart() {
+    gameComplete = false;
+    gameboard = ['','','','','','','','',''];
+    count = 0
+    xo = 'X'
+    instruction.textContent = `${player1.name} Starts`
+    document.querySelector('.player-names').style.display = "flex"
+    document.querySelector('.gameboard-icons').style.display = "none"
+    boxes.forEach(box => box.classList.remove("win"));
+    updateBoard()
+}
+
+function updateGame(index) {
+    gameboard[index] = xo;
+    document.querySelector('.player-names').style.display = "none"
+    document.querySelector('.gameboard-icons').style.display = "flex"
+
     if (xo == 'X') {
         xo = 'O'
-        instructon.textContent = `${player1.name}'s turn`
+        instruction.textContent = `${player2.name}'s turn`
     } else {
         xo = 'X'
-        instructon.textContent = `${player2.name}'s turn`
+        instruction.textContent = `${player1.name}'s turn`
     }
     count++
-    gameboard[index] = xo
 }
 
 function updateBoard() {
@@ -64,7 +84,7 @@ function checkBoard() {
         else if (gameboard[2] == xo && gameboard[5] == xo && gameboard[8] == xo) {return checkWinner(xo, 2, 5, 8)}
         else if (gameboard[0] == xo && gameboard[4] == xo && gameboard[8] == xo) {return checkWinner(xo, 0, 4, 8)}
         else if (gameboard[2] == xo && gameboard[4] == xo && gameboard[6] == xo) {return checkWinner(xo, 2, 4, 6)}
-        if (!gameComplete && count > 8) {instructon.textContent = `It's a draw!`}
+        if (!gameComplete && count > 8) {instruction.textContent = `It's a draw!`}
     });
 }
 
@@ -72,11 +92,12 @@ function checkWinner(xo, a, b, c) {
     boxes[a].classList.add("win");
     boxes[b].classList.add("win");
     boxes[c].classList.add("win");
-    if(xo == 'x') {
-        instructon.textContent = `${player1.name} wins!`
+    if(xo == 'X') {
+        instruction.textContent = `${player1.name} wins!`
     } else {
-        instructon.textContent = `${player2.name} wins!`
+        instruction.textContent = `${player2.name} wins!`
     }
+    refreshGame.style.display = 'flex';
     gameComplete = true;
 }
 
@@ -107,7 +128,7 @@ function loadPlayerNames() {
     text.player2.firstElementChild.textContent = player2.name;
     input.player1.value = player1.name;
     input.player2.value = player2.name;
-    instructon.textContent = `${player1.name} Starts`
+    instruction.textContent = `${player1.name} Starts`
 }
 
 function showForm(player) {
