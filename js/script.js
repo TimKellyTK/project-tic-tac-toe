@@ -160,24 +160,3 @@ let ticTacToe = (function () {
         })
     })();
 })()
-
-
-
-
-// Update the player names
-
-/* 
-The things you need to create to make it all work together
-- Update player 1's name (DONE)
-- Update player 2's name (DONE)
-- Update title for player.instructions on what player's turn (DONE)
-- Update title when the game is finished (DONE)
-- Update the discard game icon for when game is started (DONE)
-- Update the restart game icon for when game is finished (DONE)
-- Create function to discard/restart the game (DONE)
-- Store the player's names in localStorage (SKIPPED)
-- Clean up all the functions into factory functions and modules (DONE)
-- Clean up the code (DONE)
-- Get live on Github pages 
-- Contribute to The Odin Project curriculum
-*/

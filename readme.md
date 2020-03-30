@@ -1,3 +1,5 @@
+From The Odin Project's [curriculum](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript).
+
 # Instructions
 
 - Set up your HTML, CSS, JS and git files (DONE)
@@ -11,29 +13,3 @@ HINT: Think carefully about where logic/code should exist -> a little time brain
 - Build the logic that checks for when the game is over -> check for 3-in-a-row and a tie
 - Clean up the interface to allow players to put in their names, include a button to start/restart the game and add a display element that congratulates the winning player
 - OPTIONAL: create an AI so that a player can play against the computer
-
-# Drafting the code architecture
-
-player = (factory function)
-player1 = player('player 1')
-player2 = player('player 2')
-
-gameboard = (array)
-logic = if(gameboard[1] = 1 && gameboard[i] = 2 && gameboard[i] = 2) {
-    return checkWinner()
-}
-checkWinner
-win 1,2,3
-win 4,5,6
-win 7,8,9
-win 1,4,7
-win 2,5,8
-win 1,5,9
-win 3,5,7
-
-1 + 3 + 3
-2 + 3 + 3
-3 + 3 + 3
-1 + 1 + 1
-4 + 1 + 1
-7 + 1 + 1
