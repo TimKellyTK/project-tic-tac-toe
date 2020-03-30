@@ -107,6 +107,7 @@ function loadPlayerNames() {
     text.player2.firstElementChild.textContent = player2.name;
     input.player1.value = player1.name;
     input.player2.value = player2.name;
+    instructon.textContent = `${player1.name} Starts`
 }
 
 function showForm(player) {
@@ -140,8 +141,8 @@ submitBtn.player2.addEventListener('click', () => submitForm('player2'))
 The things you need to create to make it all work together
 - Update player 1's name (DONE)
 - Update player 2's name (DONE)
-- Update title for instructions on what player's turn
-- Update title when the game is finished
+- Update title for instructions on what player's turn (DONE)
+- Update title when the game is finished (DONE)
 - Update the discard game icon for when game is started
 - Update the restart game icon for when game is finished
 - Create function to discard/restart the game
