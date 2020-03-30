@@ -8,8 +8,8 @@ const playerFactory = (name) => {
 let player1 = playerFactory('Player 1');
 let player2 = playerFactory('Player 2');
 
-// The simple way to set up the gameboard 
 
+// Creating the gameboard
 let gameboard = ['','','','','','','','',''];
 let boxes = [];
 for (i=0; i < 9; i++) {
@@ -18,6 +18,7 @@ for (i=0; i < 9; i++) {
 let outcomes = ['X', 'O'];
 let count = 0;
 let xo;
+let instructon = document.querySelector('.players-turn')
 let gameComplete;
 
 boxes.forEach((box, index) => {
@@ -29,17 +30,23 @@ boxes.forEach((box, index) => {
 function gameLogic(box,index) {
     if (!gameComplete) {
         if(box.textContent === '') {
-            if (xo == 'X') {
-                xo = 'O'
-            } else {
-                xo = 'X'
-            }
-            count++
-            gameboard[index] = xo
+            updatePlayer(index);
             updateBoard();
             checkBoard();
         }
     }
+}
+
+function updatePlayer(index) {
+    if (xo == 'X') {
+        xo = 'O'
+        instructon.textContent = `${player1.name}'s turn`
+    } else {
+        xo = 'X'
+        instructon.textContent = `${player2.name}'s turn`
+    }
+    count++
+    gameboard[index] = xo
 }
 
 function updateBoard() {
@@ -49,15 +56,15 @@ function updateBoard() {
 }
 function checkBoard() {
     outcomes.forEach(xo => {
-        if (gameboard[0] == xo && gameboard[1] == xo && gameboard[2] == xo) {checkWinner(xo, 0, 1, 2)}
-        else if (gameboard[3] == xo && gameboard[4] == xo && gameboard[5] == xo) {checkWinner(xo, 3, 4, 5)}
-        else if (gameboard[6] == xo && gameboard[7] == xo && gameboard[8] == xo) {checkWinner(xo, 6, 7, 8)}
-        else if (gameboard[0] == xo && gameboard[3] == xo && gameboard[6] == xo) {checkWinner(xo, 0, 3, 6)}
-        else if (gameboard[1] == xo && gameboard[4] == xo && gameboard[7] == xo) {checkWinner(xo, 1, 4, 7)}
-        else if (gameboard[2] == xo && gameboard[5] == xo && gameboard[8] == xo) {checkWinner(xo, 2, 5, 8)}
-        else if (gameboard[0] == xo && gameboard[4] == xo && gameboard[8] == xo) {checkWinner(xo, 0, 4, 8)}
-        else if (gameboard[2] == xo && gameboard[4] == xo && gameboard[6] == xo) {checkWinner(xo, 2, 4, 6)}
-        else if (count > 8) {alert('It\'s a draw!')}
+        if (gameboard[0] == xo && gameboard[1] == xo && gameboard[2] == xo) {return checkWinner(xo, 0, 1, 2);}
+        else if (gameboard[3] == xo && gameboard[4] == xo && gameboard[5] == xo) {return checkWinner(xo, 3, 4, 5);}
+        else if (gameboard[6] == xo && gameboard[7] == xo && gameboard[8] == xo) {return checkWinner(xo, 6, 7, 8)}
+        else if (gameboard[0] == xo && gameboard[3] == xo && gameboard[6] == xo) {return checkWinner(xo, 0, 3, 6)}
+        else if (gameboard[1] == xo && gameboard[4] == xo && gameboard[7] == xo) {return checkWinner(xo, 1, 4, 7)}
+        else if (gameboard[2] == xo && gameboard[5] == xo && gameboard[8] == xo) {return checkWinner(xo, 2, 5, 8)}
+        else if (gameboard[0] == xo && gameboard[4] == xo && gameboard[8] == xo) {return checkWinner(xo, 0, 4, 8)}
+        else if (gameboard[2] == xo && gameboard[4] == xo && gameboard[6] == xo) {return checkWinner(xo, 2, 4, 6)}
+        if (!gameComplete && count > 8) {instructon.textContent = `It's a draw!`}
     });
 }
 
@@ -66,17 +73,73 @@ function checkWinner(xo, a, b, c) {
     boxes[b].classList.add("win");
     boxes[c].classList.add("win");
     if(xo == 'x') {
-        alert(player1.congratulate)
+        instructon.textContent = `${player1.name} wins!`
     } else {
-        alert(player2.congratulate)
+        instructon.textContent = `${player2.name} wins!`
     }
     gameComplete = true;
 }
 
+// Update the player names
+
+let text = {
+    player1: document.querySelector('[data-value = "player1"]'),
+    player2: document.querySelector('[data-value = "player2"]'),
+}
+
+let form = {
+    player1: document.querySelector('.player-1-block'),
+    player2: document.querySelector('.player-2-block')
+}
+
+let input = {
+    player1: document.querySelector('#player-1'),
+    player2: document.querySelector('#player-2')
+}
+
+let submitBtn = {
+    player1: document.querySelector('#player-1-submit'),
+    player2: document.querySelector('#player-2-submit')
+}
+
+function loadPlayerNames() {
+    text.player1.firstElementChild.textContent = player1.name;
+    text.player2.firstElementChild.textContent = player2.name;
+    input.player1.value = player1.name;
+    input.player2.value = player2.name;
+}
+
+function showForm(player) {
+    form[player].style.display = "flex";
+    text.player1.style.display = "none";
+    text.player2.style.display = "none";
+}
+
+function submitForm(player) {
+    if (player == 'player1') {
+        player1.name = input[player].value;
+    } else {
+        player2.name = input[player].value;
+    }
+    loadPlayerNames();
+    form[player].style.display = "none";
+    text.player1.style.display = "flex";
+    text.player2.style.display = "flex";
+}
+
+loadPlayerNames()
+text.player1.addEventListener('click', () => showForm('player1'))
+text.player2.addEventListener('click', () => showForm('player2'))
+submitBtn.player1.addEventListener('click', () => submitForm('player1'))
+submitBtn.player2.addEventListener('click', () => submitForm('player2'))
+
+// Update game instructions
+
+
 /* 
 The things you need to create to make it all work together
-- Update player 1's name
-- Update player 2's name
+- Update player 1's name (DONE)
+- Update player 2's name (DONE)
 - Update title for instructions on what player's turn
 - Update title when the game is finished
 - Update the discard game icon for when game is started
